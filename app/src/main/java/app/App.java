@@ -34,7 +34,7 @@ public class App {
         marcio.setNome("Marcio");
         marcio.setCpf("12345678910");
         marcio.setEmail("marcio@email.com");
-        marcio.setDataNascimento(new Date(1970,8,1));
+        marcio.setDataNascimento("10-07-1980");
 
         alunoRepository.save(marcio);
 

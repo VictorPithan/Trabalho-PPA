@@ -28,7 +28,7 @@ public class AlunoRepository implements IAlunoRepository {
       stmt.setString(2, aluno.getCpf());
       stmt.setString(3, aluno.getNome());
       stmt.setString(4, aluno.getEmail());
-      stmt.setDate(5, (Date) aluno.getDataNascimento());
+      stmt.setString(5, aluno.getDataNascimento());
 
       stmt.execute();
     }catch (Exception e) {
@@ -41,7 +41,7 @@ public class AlunoRepository implements IAlunoRepository {
     try {
       Connection con = ConexaoSqlite.getInstance(dbname);
 
-      String sql = "SELECT * FROM alunos WHERE cpf = ?";
+      String sql = "SELECT * FROM aluno WHERE cpf = ?";
 
       PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -57,7 +57,7 @@ public class AlunoRepository implements IAlunoRepository {
         aluno.setCpf(result.getString("cpf"));
         aluno.setNome(result.getString("nome"));
         aluno.setEmail(result.getString("email"));
-        aluno.setDataNascimento(result.getDate("dataNascimento"));
+        aluno.setDataNascimento(result.getString("dataNascimento"));
       }
       result.close();
       return Optional.of(aluno);
