@@ -73,11 +73,11 @@ public class MatriculaService { // Use Case (Caso de Uso)
       throw new ServiceException("Aluno tem boletos em aberto, ex: " + boletoVencido.get().getCodigo());
     }
 
-    int idade = Period.between(aluno.getDataNascimento(), LocalDate.now()).getYears();
+//    int idade = Period.between(aluno.getDataNascimento(), LocalDate.now()).getYears();
 
-    if (curso.getIdadeMinima() != null && idade < curso.getIdadeMinima()) {
-      throw new ServiceException("Aluno não cumpre idade mínima exigida de " + curso.getIdadeMinima());
-    }
+//    if (curso.getIdadeMinima() != null && idade < curso.getIdadeMinima()) {
+//      throw new ServiceException("Aluno não cumpre idade mínima exigida de " + curso.getIdadeMinima());
+//    }
 
     // início transação
     curso.setInscritos(curso.getInscritos() + 1);
