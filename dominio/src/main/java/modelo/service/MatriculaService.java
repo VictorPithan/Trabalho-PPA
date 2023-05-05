@@ -15,7 +15,6 @@ import persistence.ICursoRepository;
 import persistence.IMatriculaRepository;
 import persistence.IParametroRepository;
 
-
 public class MatriculaService { // Use Case (Caso de Uso)
 
   // dependências (depende da persistência)
@@ -24,8 +23,6 @@ public class MatriculaService { // Use Case (Caso de Uso)
   private final IParametroRepository paramRepository;
   private final IBoletoRepository boletoRepository;
   private final IMatriculaRepository matriculaRepository;
-  
-  
 
   public MatriculaService(IAlunoRepository alunoRepository, ICursoRepository cursoRepository,
       IParametroRepository paramRepository, IBoletoRepository boletoRepository,
@@ -37,53 +34,53 @@ public class MatriculaService { // Use Case (Caso de Uso)
     this.matriculaRepository = matriculaRepository;
   }
 
-
-
   // Transaction Script (Roteiro da Transação)
   // método com toda a lógica
-     //  Output              // Input
+  // Output // Input
   public Matricula matricular(String cpf, Integer codigoCurso) {
-    
+
     Aluno aluno = alunoRepository.findByCpf(cpf)
-      .orElseThrow(() -> new ServiceException("Aluno " + cpf + " não existe"));
+        .orElseThrow(() -> new ServiceException("Aluno " + cpf + " não existe"));
 
     Curso curso = cursoRepository.findByCodigo(codigoCurso)
-      .orElseThrow(() -> new ServiceException("Curso " + codigoCurso + " não existe"));
+        .orElseThrow(() -> new ServiceException("Curso " + codigoCurso + " não existe"));
 
     if (curso.getInscritos() >= curso.getVagas()) {
       throw new ServiceException("Curso com vagas esgotadas");
     }
 
-//    paramRepository.findParam("DIAS_ATRASO_MATRICULA")
-    //Integer dias = paramRepository.findParam("DIAS_ATRASO_MATRICULA")
-    //  .map(p -> Integer.parseInt(p))
-    //  .orElse(3);
-    
-    //if (LocalDate.now().isAfter(curso.getDataInicio().plusDays(dias))) {
-     // throw new ServiceException("Data inscrição passou mais de " + dias + " dias");
-    //}
+    // Integer dias = paramRepository.findParam("DIAS_ATRASO_MATRICULA")
+    // .map(p -> Integer.parseInt(p))
+    // .orElse(3);
+
+    // if (LocalDate.now().isAfter(curso.getDataInicio().plusDays(dias))) {
+    // throw new ServiceException("Data inscrição passou mais de " + dias + "
+    // dias");
+    // }
 
     List<Boleto> boletos = boletoRepository.findBoletosByCpf(cpf);
 
     Optional<Boleto> boletoVencido = boletos.stream()
-      .filter(b -> ! b.isPago()) // boletos em aberto
-      .filter(b -> b.getVencimento().isBefore(LocalDate.now())) // vencidos
-      .findAny();
+        .filter(b -> !b.isPago()) // boletos em aberto
+        .filter(b -> b.getVencimento().isBefore(LocalDate.now())) // vencidos
+        .findAny();
 
     if (boletoVencido.isPresent()) {
       throw new ServiceException("Aluno tem boletos em aberto, ex: " + boletoVencido.get().getCodigo());
     }
 
-//    int idade = Period.between(aluno.getDataNascimento(), LocalDate.now()).getYears();
+    // int idade = Period.between(aluno.getDataNascimento(),
+    // LocalDate.now()).getYears();
 
-//    if (curso.getIdadeMinima() != null && idade < curso.getIdadeMinima()) {
-//      throw new ServiceException("Aluno não cumpre idade mínima exigida de " + curso.getIdadeMinima());
-//    }
+    // if (curso.getIdadeMinima() != null && idade < curso.getIdadeMinima()) {
+    // throw new ServiceException("Aluno não cumpre idade mínima exigida de " +
+    // curso.getIdadeMinima());
+    // }
 
     // início transação
     curso.setInscritos(curso.getInscritos() + 1);
 
-    cursoRepository.update(curso);
+    // cursoRepository.update(curso);
 
     Matricula matricula = new Matricula(cpf, codigoCurso);
 
@@ -94,9 +91,7 @@ public class MatriculaService { // Use Case (Caso de Uso)
   }
 }
 
-
 class CursoController { // /curso/matricular
-
 
   void matricular() {
 

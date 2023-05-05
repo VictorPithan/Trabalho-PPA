@@ -68,7 +68,7 @@ goto fail
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\app.jar;%APP_HOME%\lib\comum.jar;%APP_HOME%\lib\memoria.jar;%APP_HOME%\lib\sqlite.jar;%APP_HOME%\lib\dominio.jar
+set CLASSPATH=%APP_HOME%\lib\app.jar;%APP_HOME%\lib\comum.jar;%APP_HOME%\lib\memoria.jar;%APP_HOME%\lib\sqlite.jar;%APP_HOME%\lib\dominio.jar;%APP_HOME%\lib\sqlite-jdbc-3.41.2.1.jar
 
 
 @rem Execute app
