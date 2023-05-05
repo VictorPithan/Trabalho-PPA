@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Date;
 
 import sqlite.persistence.AlunoRepository;
-import memoria.persistence.BoletoRepository;
-import memoria.persistence.CursoRepository;
+import sqlite.persistence.BoletoRepository;
+import sqlite.persistence.CursoRepository;
 import sqlite.persistence.MatriculaRepository;
 import memoria.persistence.ParametroRepository;
 import modelo.entidade.Aluno;
@@ -20,7 +20,7 @@ import persistence.IMatriculaRepository;
 import persistence.IParametroRepository;
 
 public class App {
-    
+
     public static void main(String[] args) {
 
         IAlunoRepository alunoRepository = new AlunoRepository();
@@ -29,14 +29,14 @@ public class App {
         IMatriculaRepository matriculaRepository = new MatriculaRepository();
         IBoletoRepository boletoRepository = new BoletoRepository();
 
-//        Aluno marcio = new Aluno();
-//        marcio.setId(1);
-//        marcio.setNome("Marcio");
-//        marcio.setCpf("12345678910");
-//        marcio.setEmail("marcio@email.com");
-//        marcio.setDataNascimento("10-07-1980");
-//
-//        alunoRepository.save(marcio);
+        // Aluno marcio = new Aluno();
+        // marcio.setId(1);
+        // marcio.setNome("Marcio");
+        // marcio.setCpf("12345678910");
+        // marcio.setEmail("marcio@email.com");
+        // marcio.setDataNascimento("10-07-1980");
+        //
+        // alunoRepository.save(marcio);
 
         System.out.println(alunoRepository.findByCpf("12345678910"));
 
@@ -45,36 +45,35 @@ public class App {
         tads.setNome("Tec e Anal e Des Sist");
         tads.setEmenta("Um curso muito legal");
         tads.setCargaHoraria(700);
-        tads.setDataInicio(LocalDate.of(2023,8,1));
+        tads.setDataInicio("15/09/23");
         tads.setIdadeMinima(18);
         tads.setInscritos(18);
         tads.setVagas(20);
 
         cursoRepository.save(tads);
-//
+        //
         System.out.println(cursoRepository.findByCodigo(123456));
 
-         Matricula mat = new Matricula("12345678910", 123456);
-         mat.setNumero(1);
+        Matricula mat = new Matricula("12345678910", 123456);
+        mat.setNumero(1);
 
-         matriculaRepository.save(mat);
-        
+        matriculaRepository.save(mat);
 
-//        MatriculaService matriculaService = new MatriculaService(
-//            alunoRepository,
-//            cursoRepository,
-//            paramRepository,
-//            boletoRepository,
-//            matriculaRepository);
+        // MatriculaService matriculaService = new MatriculaService(
+        // alunoRepository,
+        // cursoRepository,
+        // paramRepository,
+        // boletoRepository,
+        // matriculaRepository);
 
-//         Matricula m = matriculaService.matricular("12345678901", 123);
+        // Matricula m = matriculaService.matricular("12345678901", 123);
 
-//        try {
-//            matriculaService.matricular("12345678910", 123456);
-//        } catch (ServiceException se) {
-//            System.err.println(se); // CPF não existe
-//        }
-//
+        // try {
+        // matriculaService.matricular("12345678910", 123456);
+        // } catch (ServiceException se) {
+        // System.err.println(se); // CPF não existe
+        // }
+        //
     }
 
 }
