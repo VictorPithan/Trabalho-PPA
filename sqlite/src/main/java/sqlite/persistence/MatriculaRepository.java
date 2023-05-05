@@ -16,7 +16,7 @@ public class MatriculaRepository implements IMatriculaRepository {
   @Override
   public void save(Matricula matricula) {
     try {
-      Connection con = ConexaoSqlite.getInstance(dbname);
+      Connection con = ConexaoSqlite.getInstance();
       String sql = "INSERT INTO matricula (numero, cpf, codigoCurso) VALUES (?,?,?);";
       PreparedStatement stmt = con.prepareStatement(sql);
       stmt.setInt(1, 1);

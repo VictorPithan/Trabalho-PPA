@@ -9,7 +9,7 @@ public class Aluno {
   private String cpf;
   private String nome;
   private String email;
-  private String dataNascimento;
+  private LocalDate dataNascimento;
 
   public Aluno() {}
 
@@ -45,11 +45,11 @@ public class Aluno {
     this.email = email;
   }
 
-  public String getDataNascimento() {
+  public LocalDate getDataNascimento() {
     return dataNascimento;
   }
 
-  public void setDataNascimento(String dataNascimento) {
+  public void setDataNascimento(LocalDate dataNascimento) {
     this.dataNascimento = dataNascimento;
   }
   

@@ -1,14 +1,11 @@
 package sqlite.persistence;
 
 import java.lang.reflect.Field;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +17,7 @@ public class AlunoRepository implements IAlunoRepository {
   @Override
   public void save(Aluno aluno) {
     try {
-      Connection con = ConexaoSqlite.getInstance(dbname);
+      Connection con = ConexaoSqlite.getInstance();
       String sql = "INSERT INTO aluno (id, cpf, nome, email, dataNascimento) VALUES (?,?,?,?,?);";
       PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -28,7 +25,12 @@ public class AlunoRepository implements IAlunoRepository {
       stmt.setString(2, aluno.getCpf());
       stmt.setString(3, aluno.getNome());
       stmt.setString(4, aluno.getEmail());
-      stmt.setString(5, aluno.getDataNascimento());
+      if(Objects.isNull(aluno.getDataNascimento())) {
+        stmt.setNull(5, Types.VARCHAR);
+      }else {
+        stmt.setString(5, aluno.getDataNascimento().toString());
+      }
+
 
       stmt.execute();
     }catch (Exception e) {
@@ -39,7 +41,7 @@ public class AlunoRepository implements IAlunoRepository {
   @Override
   public Optional<Aluno> findByCpf(String cpf) {
     try {
-      Connection con = ConexaoSqlite.getInstance(dbname);
+      Connection con = ConexaoSqlite.getInstance();
 
       String sql = "SELECT * FROM aluno WHERE cpf = ?";
 
@@ -57,7 +59,12 @@ public class AlunoRepository implements IAlunoRepository {
         aluno.setCpf(result.getString("cpf"));
         aluno.setNome(result.getString("nome"));
         aluno.setEmail(result.getString("email"));
-        aluno.setDataNascimento(result.getString("dataNascimento"));
+        try {
+          aluno.setDataNascimento(LocalDate.parse(result.getString("dataNascimento")));
+        } catch (DateTimeParseException | NullPointerException e) {
+          aluno.setDataNascimento(null);
+        }
+
       }
       result.close();
       return Optional.of(aluno);

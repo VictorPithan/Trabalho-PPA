@@ -34,8 +34,8 @@ public class App {
 //        marcio.setNome("Marcio");
 //        marcio.setCpf("12345678910");
 //        marcio.setEmail("marcio@email.com");
-//        marcio.setDataNascimento("10-07-1980");
-//
+//        marcio.setDataNascimento(LocalDate.of(1976,10,25));
+
 //        alunoRepository.save(marcio);
 
         System.out.println(alunoRepository.findByCpf("12345678910"));
@@ -54,10 +54,10 @@ public class App {
 //
         System.out.println(cursoRepository.findByCodigo(123456));
 
-         Matricula mat = new Matricula("12345678910", 123456);
-         mat.setNumero(1);
+//         Matricula mat = new Matricula("12345678910", 123456);
+//         mat.setNumero(1);
 
-         matriculaRepository.save(mat);
+//         matriculaRepository.save(mat);
         
 
 //        MatriculaService matriculaService = new MatriculaService(

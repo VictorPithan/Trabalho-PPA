@@ -9,8 +9,8 @@ public class ConexaoSqlite {
 
   private ConexaoSqlite() {}
   
-  public static synchronized Connection getInstance(String name) throws SQLException{
-      String url = "jdbc:sqlite:" + name;
+  public static synchronized Connection getInstance() throws SQLException{
+      String url = "jdbc:sqlite:" + Constantes.DB_NAME;
       if (instance == null) {
           instance = DriverManager.getConnection(url);
       }

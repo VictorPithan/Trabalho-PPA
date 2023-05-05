@@ -54,6 +54,7 @@ public class MatriculaService { // Use Case (Caso de Uso)
       throw new ServiceException("Curso com vagas esgotadas");
     }
 
+//    paramRepository.findParam("DIAS_ATRASO_MATRICULA")
     //Integer dias = paramRepository.findParam("DIAS_ATRASO_MATRICULA")
     //  .map(p -> Integer.parseInt(p))
     //  .orElse(3);
