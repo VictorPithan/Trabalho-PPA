@@ -1,10 +1,13 @@
 package app;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
+import modelo.entidade.Boleto;
 import sqlite.persistence.AlunoRepository;
-import memoria.persistence.BoletoRepository;
+import sqlite.persistence.BoletoRepository;
 import sqlite.persistence.CursoRepository;
 import sqlite.persistence.MatriculaRepository;
 import sqlite.persistence.ParametroRepository;
@@ -78,6 +81,19 @@ public class App {
         } catch (ServiceException se) {
             System.err.println(se); // CPF não existe
         }
+
+        Boleto boletoMarcio = new Boleto();
+        boletoMarcio.setCodigo(1);
+        boletoMarcio.setAlunoContratante(marcio);
+        boletoMarcio.setPago(true);
+        boletoMarcio.setVencimento(LocalDate.of(2023,04,07));
+        boletoMarcio.setValor(BigDecimal.valueOf(1000));
+
+        boletoRepository.save(boletoMarcio);
+
+        List<Boleto> listBoletos = boletoRepository.findBoletosByCpf("12345678910");
+
+        listBoletos.forEach(System.out::println);
 
     }
 

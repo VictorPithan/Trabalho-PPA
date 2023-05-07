@@ -11,6 +11,8 @@ public class Boleto {
   private Boolean pago;
   private Aluno alunoContratante;
 
+  public Boleto() {}
+
   public Integer getCodigo() {
     return codigo;
   }
@@ -45,6 +47,14 @@ public class Boleto {
     this.alunoContratante = alunoContratante;
   }
 
-  
-
+  @Override
+  public String toString() {
+    return "Boleto{" +
+            "codigo=" + codigo +
+            ", valor=" + valor +
+            ", vencimento=" + vencimento +
+            ", pago=" + pago +
+            ", alunoContratante=" + alunoContratante +
+            '}';
+  }
 }
