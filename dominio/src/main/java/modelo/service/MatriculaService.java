@@ -37,7 +37,7 @@ public class MatriculaService { // Use Case (Caso de Uso)
   // Transaction Script (Roteiro da Transação)
   // método com toda a lógica
   // Output // Input
-  public Matricula matricular(String cpf, Integer codigoCurso) {
+  public Matricula matricular(Integer numero, String cpf, Integer codigoCurso) {
 
     Aluno aluno = alunoRepository.findByCpf(cpf)
         .orElseThrow(() -> new ServiceException("Aluno " + cpf + " não existe"));
@@ -49,14 +49,13 @@ public class MatriculaService { // Use Case (Caso de Uso)
       throw new ServiceException("Curso com vagas esgotadas");
     }
 
-    // Integer dias = paramRepository.findParam("DIAS_ATRASO_MATRICULA")
-    // .map(p -> Integer.parseInt(p))
-    // .orElse(3);
+     Integer dias = paramRepository.findParam("DIAS_ATRASO_MATRICULA")
+     .map(p -> Integer.parseInt(p))
+     .orElse(3);
 
-    // if (LocalDate.now().isAfter(curso.getDataInicio().plusDays(dias))) {
-    // throw new ServiceException("Data inscrição passou mais de " + dias + "
-    // dias");
-    // }
+     if (LocalDate.now().isAfter(curso.getDataInicio().plusDays(dias))) {
+        throw new ServiceException("Data inscrição passou mais de " + dias + " dias");
+     }
 
     List<Boleto> boletos = boletoRepository.findBoletosByCpf(cpf);
 
@@ -69,20 +68,22 @@ public class MatriculaService { // Use Case (Caso de Uso)
       throw new ServiceException("Aluno tem boletos em aberto, ex: " + boletoVencido.get().getCodigo());
     }
 
-    // int idade = Period.between(aluno.getDataNascimento(),
-    // LocalDate.now()).getYears();
+     int idade = Period.between(aluno.getDataNascimento(),
+     LocalDate.now()).getYears();
 
-    // if (curso.getIdadeMinima() != null && idade < curso.getIdadeMinima()) {
-    // throw new ServiceException("Aluno não cumpre idade mínima exigida de " +
-    // curso.getIdadeMinima());
-    // }
+     if (curso.getIdadeMinima() != null && idade < curso.getIdadeMinima()) {
+     throw new ServiceException("Aluno não cumpre idade mínima exigida de " +
+     curso.getIdadeMinima());
+     }
 
     // início transação
     curso.setInscritos(curso.getInscritos() + 1);
 
-    // cursoRepository.update(curso);
+      System.out.println(curso);
+     cursoRepository.update(curso);
+      System.out.println(curso);
 
-    Matricula matricula = new Matricula(cpf, codigoCurso);
+    Matricula matricula = new Matricula(numero, cpf, codigoCurso);
 
     matriculaRepository.save(matricula);
     // fim transação

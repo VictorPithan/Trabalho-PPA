@@ -10,14 +10,14 @@ public class Curso {
   private Integer cargaHoraria;
   private Integer vagas;
   private Integer inscritos;
-  private String dataInicio;
+  private LocalDate dataInicio;
   private Integer idadeMinima;
 
   public Curso() {
   }
 
   public Curso(Integer codigo, String nome, String ementa, Integer cargaHoraria, Integer vagas, Integer inscritos,
-      String dataInicio, Integer idadeMinima) {
+      LocalDate dataInicio, Integer idadeMinima) {
     this.codigo = codigo;
     this.nome = nome;
     this.ementa = ementa;
@@ -76,11 +76,11 @@ public class Curso {
     this.inscritos = inscritos;
   }
 
-  public String getDataInicio() {
+  public LocalDate getDataInicio() {
     return dataInicio;
   }
 
-  public void setDataInicio(String dataInicio) {
+  public void setDataInicio(LocalDate dataInicio) {
     this.dataInicio = dataInicio;
   }
 

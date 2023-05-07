@@ -21,12 +21,12 @@ public class CursoRepository implements ICursoRepository {
     return cursos.stream().filter(a -> a.getCodigo().equals(codigoCurso)).findAny();
   }
 
-  // @Override
-  // public void update(Curso curso) {
-  // cursos.stream().filter(a -> a.equals(curso)).findFirst().ifPresent(c -> {
-  // cursos.remove(c);
-  // cursos.add(curso);
-  // });
-  // }
+   @Override
+   public void update(Curso curso) {
+     cursos.stream().filter(a -> a.equals(curso)).findFirst().ifPresent(c -> {
+     cursos.remove(c);
+     cursos.add(curso);
+     });
+   }
 
 }

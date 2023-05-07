@@ -67,7 +67,7 @@ public class AlunoRepository implements IAlunoRepository {
 
       }
       result.close();
-      return Optional.of(aluno);
+      return Optional.ofNullable(aluno);
 
     } catch (Exception e) {
       e.printStackTrace();

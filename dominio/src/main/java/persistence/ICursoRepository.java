@@ -8,7 +8,7 @@ public interface ICursoRepository {
 
   Optional<Curso> findByCodigo(Integer codigoCurso);
 
-  // void update(Curso curso);
+   void update(Curso curso);
 
   void save(Curso curso);
 

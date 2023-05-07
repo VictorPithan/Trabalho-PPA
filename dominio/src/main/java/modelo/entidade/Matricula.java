@@ -6,7 +6,7 @@ public class Matricula {
   private final String cpf;
   private final Integer codigoCurso;
 
-  public Matricula(String cpf, Integer codigoCurso) {
+  public Matricula(Integer numero, String cpf, Integer codigoCurso) {
     this.cpf = cpf;
     this.codigoCurso = codigoCurso;
   }
